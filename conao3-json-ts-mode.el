@@ -27,6 +27,8 @@
 
 ;;; Code:
 
+(require 'treesit)
+
 (defvar conao3-json-ts-mode-language-source
   '(conao3-json . ("https://github.com/conao3/tree-sitter-conao3-json"))
   "`treesit-language-source-alist' value.")
@@ -37,7 +39,18 @@
     (let ((treesit-language-source-alist (list conao3-json-ts-mode-language-source)))
       (treesit-install-language-grammar 'conao3-json)))
 
-  (setq treesit-primary-parser (treesit-parser-create 'conao3-json))
+  (setq-local treesit-primary-parser (treesit-parser-create 'conao3-json))
+
+  (setq-local treesit-font-lock-settings
+              (treesit-font-lock-rules
+               :language 'conao3-json
+               :feature 'all
+               '(((string) @font-lock-string-face)
+                 ((number) @font-lock-constant-face)
+                 ((boolean) @font-lock-constant-face)
+                 ((null) @font-lock-constant-face))))
+
+  (setq-local treesit-font-lock-feature-list '((all)))
 
   (treesit-major-mode-setup))
 
