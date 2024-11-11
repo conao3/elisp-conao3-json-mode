@@ -27,7 +27,30 @@
 
 ;;; Code:
 
+(defvar conao3-json-ts-mode-language-source
+  '(conao3-json . ("https://github.com/conao3/tree-sitter-conao3-json"))
+  "`treesit-language-source-alist' value.")
 
+;;;###autoload
+(define-derived-mode conao3-json-ts-mode prog-mode "[Conao3]JSON"
+  (unless (treesit-language-available-p 'conao3-json)
+    (let ((treesit-language-source-alist (list conao3-json-ts-mode-language-source)))
+      (treesit-install-language-grammar 'conao3-json)))
+
+  (setq treesit-primary-parser (treesit-parser-create 'conao3-json))
+
+  (treesit-major-mode-setup))
+
+;;;###autoload
+(define-minor-mode conao3-json-ts-mode-mode
+  "Toggle `conao3-json-ts-mode' enabled."
+  :global t
+  (if conao3-json-ts-mode-mode
+      (progn
+        (add-to-list 'auto-mode-alist '("\\.json\\'" . conao3-json-ts-mode))
+        (add-to-list 'major-mode-remap-alist '(json-mode . conao3-json-ts-mode)))
+    (setq auto-mode-alist (delete '("\\.json\\'" . conao3-json-ts-mode) auto-mode-alist))
+    (setq major-mode-remap-alist (delete '(json-mode . conao3-json-ts-mode) major-mode-remap-alist))))
 
 (provide 'conao3-json-ts-mode)
 
