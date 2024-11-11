@@ -35,6 +35,7 @@
 
 ;;;###autoload
 (define-derived-mode conao3-json-ts-mode prog-mode "[Conao3]JSON"
+  :group 'conao3-json-ts-mode
   (unless (treesit-language-available-p 'conao3-json)
     (let ((treesit-language-source-alist (list conao3-json-ts-mode-language-source)))
       (treesit-install-language-grammar 'conao3-json)))
@@ -57,6 +58,7 @@
 ;;;###autoload
 (define-minor-mode conao3-json-ts-mode-mode
   "Toggle `conao3-json-ts-mode' enabled."
+  :group 'conao3-json-ts-mode
   :global t
   (if conao3-json-ts-mode-mode
       (progn
