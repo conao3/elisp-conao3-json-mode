@@ -1,0 +1,7 @@
+(source gnu melpa)
+
+(package
+ (conao3-json-ts-mode
+  (recipe . (conao3-json-ts-mode :fetcher github :repo "conao3/elisp-conao3-json-ts-mode"))))
+
+(dev-dependency cort)
