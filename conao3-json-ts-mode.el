@@ -60,6 +60,10 @@
                  ((parent-is "object") parent-bol 2)
                  ((parent-is "array") parent-bol 2))))
 
+  (setq-local treesit-simple-imenu-settings
+              '(("Object" "\\`object\\'" nil nil)
+                ("Array" "\\`array\\'" nil nil)))
+
   (treesit-major-mode-setup))
 
 ;;;###autoload
