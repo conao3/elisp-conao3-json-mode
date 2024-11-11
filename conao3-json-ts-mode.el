@@ -53,6 +53,13 @@
 
   (setq-local treesit-font-lock-feature-list '((all)))
 
+  (setq-local treesit-simple-indent-rules
+              '((conao3-json
+                 ((node-is "]") parent-bol 0)
+                 ((node-is "}") parent-bol 0)
+                 ((parent-is "object") parent-bol 2)
+                 ((parent-is "array") parent-bol 2))))
+
   (treesit-major-mode-setup))
 
 ;;;###autoload
